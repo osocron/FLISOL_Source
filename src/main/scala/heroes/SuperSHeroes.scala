@@ -73,5 +73,5 @@ object MundoDC extends App {
     ("Alright.. you asked for it!","Noooooooooo"))
 
   val (sup, kC) = superMan.haveConversation(superMan, killerCroc, conversacion)
-  
+
 }
