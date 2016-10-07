@@ -8,22 +8,22 @@ case class SuperSHeroes(nombreHeroico: String,
                         nombreReal: String,
                         fechaNacimiento: LocalDate,
                         poderes: List[SPower],
-                        messages: List[String]) extends ScalaMutante with Alien
+                        messages: List[String]) extends SMutant with Alien
 
 case class SVillano(nombreVillano: String,
                     nombreReal: String,
                     fechaNacimiento: LocalDate,
                     poderes: List[SPower],
-                    messages: List[String]) extends ScalaMutante with Alien
+                    messages: List[String]) extends SMutant with Alien
 
 case class SNeutral(nombreReal: String,
                     fechaNacimiento: LocalDate,
                     poderes: List[SPower],
-                    messages: List[String]) extends ScalaMutante with Alien
+                    messages: List[String]) extends SMutant with Alien
 
 case class SPower(nombre: String, efecto: String, tipo: String)
 
-trait ScalaMutante {
+trait SMutant {
   val nombreReal: String
   val fechaNacimiento: LocalDate
   val poderes: List[SPower]
@@ -43,13 +43,14 @@ trait Alien {
     case st@SNeutral(_, _, _, _)        => (st.copy(messages = messages :+ message), message)
   }
 
-  def haveConversation(a1: Alien, a2: Alien, mensajes: List[(String, String)]): (Alien, Alien) = mensajes match {
-    case Nil => (a1, a2)
-    case (m1, m2) :: t =>
-      val (a2_n, _) = a1.sendMessage(m1, a2).run(a2)
-      val (a1_n, _) = a2_n.sendMessage(m2, a1).run(a1)
-      haveConversation(a1_n, a2_n, t)
-  }
+  def haveConversation(a1: Alien, a2: Alien, conversacion: List[(String, String)]): (Alien, Alien) =
+    conversacion match {
+      case Nil => (a1, a2)
+      case (m1, m2) :: t =>
+        val (a2_n, _) = a1.sendMessage(m1, a2).run(a2)
+        val (a1_n, _) = a2_n.sendMessage(m2, a1).run(a1)
+        haveConversation(a1_n, a2_n, t)
+    }
 
 }
 
