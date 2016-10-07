@@ -32,18 +32,7 @@ object SCuadroMagico extends App {
     else encontrarCuadro(count + 1)
   }
 
-  val c1 =  Future(encontrarCuadro(1))
-  val c2 =  Future(encontrarCuadro(1))
-  val c3 =  Future(encontrarCuadro(1))
-  val c4 =  Future(encontrarCuadro(1))
-  val c5 =  Future(encontrarCuadro(1))
-  val c6 =  Future(encontrarCuadro(1))
-  val c7 =  Future(encontrarCuadro(1))
-  val c8 =  Future(encontrarCuadro(1))
-  val c9 =  Future(encontrarCuadro(1))
-  val c10 = Future(encontrarCuadro(1))
-
-  val first = Future.firstCompletedOf(Seq(c1, c2, c3, c4, c5, c6, c7, c8, c9, c10))
+  val first = Future.firstCompletedOf(for{i <- 1 to 10} yield Future(encontrarCuadro(1)))
 
   Await.result(first, Duration.Inf) match {
     case (cuadro, contador) =>
