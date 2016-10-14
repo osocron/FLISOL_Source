@@ -13,9 +13,9 @@ object SCuadroMagico extends App {
   def generarCuadroMagico: List[List[Int]] =
     Random.shuffle((1 until 10).toList).grouped(3).toList
 
-  def sumaVertical(xs: List[List[Int]]): List[Int] = xs.transpose.map(_.sum)
-
   def sumaHorizontal(xs: List[List[Int]]): List[Int] = xs.map(_.sum)
+
+  def sumaVertical(xs: List[List[Int]]): List[Int] = xs.transpose.map(_.sum)
 
   def sumaDiagonal(xs: List[List[Int]]): List[Int] = {
     val reversed = xs.map(_.reverse)
@@ -32,7 +32,7 @@ object SCuadroMagico extends App {
     else encontrarCuadro(count + 1)
   }
 
-  val first = Future.firstCompletedOf(for{i <- 1 to 10} yield Future(encontrarCuadro(1)))
+  val first = Future.firstCompletedOf(for {i <- 1 to 10} yield Future(encontrarCuadro(1)))
 
   Await.result(first, Duration.Inf) match {
     case (cuadro, contador) =>

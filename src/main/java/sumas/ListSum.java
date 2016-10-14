@@ -1,6 +1,7 @@
 package sumas;
 
 class ListSum {
+
     private int[] lista;
 
     ListSum(int[] lista) {
@@ -14,7 +15,7 @@ class ListSum {
     int suma() {
         int res = 0;
         for (int num : lista) {
-            res += num;
+            res = res + num;
         }
         return res;
     }
@@ -22,7 +23,7 @@ class ListSum {
     int multiplicacion() {
         int res = 1;
         for (int num : lista) {
-            res *= num;
+            res = res * num;
         }
         return res;
     }
